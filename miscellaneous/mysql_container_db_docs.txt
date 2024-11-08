@@ -1,0 +1,47 @@
+docker pull mysql:latest
+
+docker run --name mysql -d \
+    -p 3306:3306 \
+    --network inference \
+    -e MYSQL_ROOT_PASSWORD=temp \
+    -v mysql:/var/lib/mysql \
+    --restart unless-stopped \
+    mysql:latest
+
+Connect to mysql within the container.
+docker exec -it mysql mysql -p
+
+CREATE DATABASE IF NOT EXISTS prov;
+USE prov;
+
+What is the schema of the db?
+reccom (version_number, user_id)
+tracking(version_number, data_creation, trained_on, model_rmse)
+
+select Version, RecommendationID, DataCreationTime, ModelTrainingTime, modelRMSE
+as A.version_number, A.user_id,
+B.data_creation, B.trained_on, B.model_rmse
+from reccom A, tracking B 
+where A.version_number = B.version_number
+
+select top 2 A.version_number, A.user_id,
+B.data_creation, B.trained_on, B.model_rmse
+from reccom A, tracking B 
+where A.version_number = B.version_number
+
+select A.version_number, A.user_id,
+B.data_creation, B.trained_on, B.model_rmse
+from reccom A, tracking B 
+where A.version_number = B.version_number
+ORDER BY A.version_number DESC LIMIT 2 
+
+docker logs app-inference_canary-1
+docker compose up -d --build --force-recreate inference_canary
+
+
+# create a init sql script
+
+create database prov;
+use prov;
+create table reccom (version_number INT, user_id INT);
+create table tracking(version_number INT, data_creation TIMESTAMP, trained_on TIMESTAMP, model_rmse FLOAT);

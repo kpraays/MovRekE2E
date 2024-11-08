@@ -1,0 +1,104 @@
+server:
+  http_listen_port: 9081
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/promtail-positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: system
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: varlogs
+      __path__: /var/log/*log
+- job_name: kafka
+  kafka:
+    brokers:
+    - fall2023-comp585.cs.mcgill.ca:9092
+    topics:
+    - movielog4
+    labels:
+      job: kafka
+  pipeline_stages:
+  - match:
+      selector: '{job="kafka"} |~ "/data"'
+      stages:
+        - regex:
+            expression: (?P<timestamp>\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}),(?P<userid>\d+),GET \/data\/m\/(?P<movieid>[a-zA-Z0-9]+(\+[a-zA-Z0-9]+)*?)\/(?P<minute>\d+)\.mpg
+        - template:
+            source: log_msg
+            template: "{{ .timestamp }},{{ .userid }},{{ .movieid }},{{ .minute }}"
+        - output:
+            source: log_msg
+        - static_labels:
+            type: "history"
+  - match:
+      selector: '{job="kafka"} |~ "GET /rate"'
+      stages:
+        - regex:
+            expression: (?P<timestamp>\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}),(?P<userid>\d+),GET /rate/(?P<movieid>.*?)=(?P<rating>\d+)
+        - template:
+            source: log_msg
+            template: "{{ .timestamp }},{{ .userid }},{{ .movieid }},{{ .rating }}"
+        - output:
+            source: log_msg
+        - static_labels:
+            type: "rating"
+  - match:
+      selector: '{job="kafka"} |~ "status 200"'
+      stages:
+        - regex:
+            expression: (?P<timestamp>\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}),(?P<userid>\d+?),recommendation\srequest\sfall2023\-comp585\-4\.cs\.mcgill\.ca:8082,\sstatus 200,\sresult:\s(?P<recommendation>[\w\s\d\+,]+?),\s(?P<time_taken>\d+?)\sms$
+        - template:
+            source: recommendation_msg
+            template: "{{ .timestamp }},{{ .userid }},{{ .recommendation }},{{ .time_taken }}"
+        - output:
+            source: recommendation_msg
+        - static_labels:
+            type: "recommendation"
+        - metrics:
+            successful_requests:
+                  type: Counter
+                  description: "Number of instances of successful recommendations returned by the server"
+                  config:
+                    match_all: true
+                    action: inc
+            http_response_time_seconds:
+                  type: Histogram
+                  description: "Response time of recommendations"
+                  source: time_taken
+                  config:
+                    buckets: [200, 400, 600, 800]
+
+  - match:
+      selector: '{job="kafka"} |~ "status 0"'
+      stages:
+        - regex:
+            expression: (?P<timestamp>\d{4}\-\d{2}\-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}),(?P<userid>\d+?),recommendation\srequest\sfall2023\-comp585\-4\.cs\.mcgill\.ca:8082,\sstatus 0,\sresult:\s(?P<error>java\.[^:]+?):\s(?P<message>[^,]+?),\s(?P<time_taken>\d+?)\sms$
+        - template:
+            source: error_msg
+            template: "{{ .timestamp }},{{ .userid }},{{ .error }},{{ .message }},{{ .time_taken }}"
+        - output:
+            source: error_msg
+        - static_labels:
+            type: "error"
+        - metrics:
+            request_timeout:
+              type: Counter
+              description: "Number of instances of the recommendation request that timed out"
+              source: error
+              config:
+                value: java.util.concurrent.TimeoutException
+                action: inc
+            connection_timeout: 
+              type: Counter
+              description: "Number of instances of the recommendation request that failed due to connection timeout"
+              source: error
+              config:
+                value: java.net.ConnectException
+                action: inc

@@ -1,0 +1,33 @@
+Meeting notes:
+
+All the members met.
+TODO: Go over the requirements.
+Discussion on milestone 3.
+
+
+Pick the approach for model:
+    We use pre-existing approaches for models.
+    One can find the model architecture and others can implement.
+
+Nearest neighbor explanation vs K-NN
+Meetings: Tues + Thurs (optional)
+Create the dataset for training + testing.
+Create the model: training.
+Deploying the model.
+
+**Keep good documentation and code practices.**
+Pick the architecture and design.
+Design - architecture
+
+Issues: (TODO) [this week]
+1. Create issues for every person for reading up on the architecture - imp right now
+2. Dataset creation: train + test
+3. Preprocess the dataset
+4. Train the model. (preference for non-gpu based)
+    Ensembles may be a good idea.
+5. Deploying the whole thing - more details will be needed on this - do background research on what needs to be done. (clarify by the weekend)
+
+Suggestions:
+    Create a test for connection - CURL - script
+    Deployment script - in the end
+

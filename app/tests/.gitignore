@@ -1,0 +1,4 @@
+app/
+cleaned_history.csv
+cleaned_rating.csv
+filtered_responses.csv

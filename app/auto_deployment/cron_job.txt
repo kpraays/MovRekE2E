@@ -1,0 +1,1 @@
+35 17 * * * /home/team-4/cron_test/test.sh >> /home/team-4/cron_test/logfile.log 2>&1

@@ -1,0 +1,5 @@
+- First implementation (v1) of the model to be done using user's ratings. After milestone 1 we could add movie minutes as well.
+- scikit-surprise library to be used for the implementation
+- User & movie details to be used after implementing v1
+- Adding bias to the rating algorithm for grouping users like same age, etc. found here: https://realpython.com/build-recommendation-engine-collaborative-filtering/#how-to-find-similar-users-on-the-basis-of-ratings 
+- Optimize the model if we have time left

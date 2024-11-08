@@ -1,0 +1,1 @@
+This is a placeholder model to get the API running. Feel free to modify stuff but just retain the model folder so that the directory structure is retained.

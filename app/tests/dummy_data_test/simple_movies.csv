@@ -1,0 +1,31 @@
+movie_id, adult, type, max_min, global_rate, languages
+movie1,FALSE,"Romance, Comedy, Crime, Fantasy",101,6.6,"svenska, English"
+movie2,FALSE,"Crime, Drama, Comedy",180,7.9,"Français, English"
+movie3,TRUE,Drama,93,7.3,Español
+movie4,FALSE,"Action, Drama",207,8.2,English
+movie5,FALSE,"Action, Adventure, Science Fiction",130,6.8,English
+movie6,FALSE,"Drama, Thriller, Crime",103,5.3,"English, Español"
+movie7,FALSE,"Adventure, Fantasy, Animation",134,8.2,English
+movie8,FALSE,"Western, Drama",122,6.4,English
+movie9,FALSE,"Adventure, Fantasy, Action",201,8.1,English
+movie10,TRUE,Drama,134,7,English
+movie11,FALSE,"Romance, Drama",126,7.7,"English, Italiano"
+movie12,FALSE,Comedy,92,6.4,English
+movie13,FALSE,"Action, Crime, Drama, Thriller",108,6.1,English
+movie14,FALSE,"Comedy Action",92,6.4,English
+movie15,FALSE,Drama,108,6.1,Français
+movie16,FALSE,"Romance, Comedy, Crime, Fantasy",101,6.6,"svenska, English"
+movie17,FALSE,"Crime, Drama, Comedy",180,7.9,"Français, English"
+movie18,FALSE,Drama,93,7.3,Español
+movie19,FALSE,"Action, Drama",207,8.2,English
+movie20,FALSE,"Action, Adventure, Science Fiction",130,6.8,English
+movie21,FALSE,"Drama, Thriller, Crime",103,5.3,"English, Español"
+movie22,FALSE,"Adventure, Fantasy, Animation",134,8.2,English
+movie23,TRUE,"Western, Drama",122,6.4,English
+movie24,FALSE,"Adventure, Fantasy, Action",201,8.1,English
+movie25,FALSE,Drama,134,7,English
+movie26,FALSE,"Romance, Drama",126,7.7,"English, Italiano"
+movie27,FALSE,Comedy,92,6.4,English
+movie28,FALSE,"Action, Crime, Drama, Thriller",108,6.1,English
+movie29,FALSE,"Comedy Action",92,6.4,English
+movie30,FALSE,Drama,108,6.1,Français

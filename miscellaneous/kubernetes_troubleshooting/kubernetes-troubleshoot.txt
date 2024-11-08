@@ -1,0 +1,896 @@
+10.69.38.197 - - [19/Nov/2023:02:36:48 +0000] "GET /recommend/193647 HTTP/1.1" 500 177 "-" "Dispatch/1.1.1"
+
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.25.3</center>
+</body>
+</html>
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca
+{"Welcome":"Hit the user ID end point - /recommend/<userid>"}
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.25.3</center>
+</body>
+</html>
+team-4@fall2023-comp585-4:~/nginx$ kubectl get all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-4zzbh   1/1     Running   0          23h
+pod/inference-deployment-7d46d9d5b6-wlgt6   1/1     Running   0          35h
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   2/2     2            2           36h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-5d69bf5767   0         0         0       36h
+replicaset.apps/inference-deployment-7d46d9d5b6   2         2         2       35h
+team-4@fall2023-comp585-4:~/nginx$ nslookup fall2023-comp585-4.cs.mcgill.ca
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   fall2023-comp585-4.cs.mcgill.ca
+Address: 10.69.38.201
+
+team-4@fall2023-comp585-4:~/nginx$ kg ingress
+kg: command not found
+team-4@fall2023-comp585-4:~/nginx$ kubectl get ingress
+NAME                CLASS   HOSTS                             ADDRESS     PORTS   AGE
+inference-ingress   nginx   fall2023-comp585-4.cs.mcgill.ca   localhost   80      32h
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.25.3</center>
+</body>
+</html>
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca/recommend/34256
+the+lord+of+the+rings+the+two+towers+2002,pulp+fiction+1994,whiplash+2014,the+lord+of+the+rings+the+return+of+the+king+2003,one+flew+over+the+cuckoos+nest+1975,interstellar+2014,my+neighbor+totoro+1988,seven+samurai+1954,the+dark+knight+2008,the+dark+knight+rises+2012,saving+private+ryan+1998,leon+the+professional+1994,the+imitation+game+2014,princess+mononoke+1997,finding+nemo+2003,up+2009,terminator+2+judgment+day+1991,batman+begins+2005,harry+potter+and+the+goblet+of+fire+2005,gone+girl+2014team-4@fall2023-comp585-4:~/nginx$ alias k=kubectl
+team-4@fall2023-comp585-4:~/nginx$ k get all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-4zzbh   1/1     Running   0          23h
+pod/inference-deployment-7d46d9d5b6-wlgt6   1/1     Running   0          36h
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   2/2     2            2           36h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-5d69bf5767   0         0         0       36h
+replicaset.apps/inference-deployment-7d46d9d5b6   2         2         2       36h
+team-4@fall2023-comp585-4:~/nginx$ kg all
+kg: command not found
+team-4@fall2023-comp585-4:~/nginx$ alias k=
+team-4@fall2023-comp585-4:~/nginx$ alias kg="kubectl get"
+team-4@fall2023-comp585-4:~/nginx$ kg all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-4zzbh   1/1     Running   0          23h
+pod/inference-deployment-7d46d9d5b6-wlgt6   1/1     Running   0          36h
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   2/2     2            2           36h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-5d69bf5767   0         0         0       36h
+replicaset.apps/inference-deployment-7d46d9d5b6   2         2         2       36h
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.25.3</center>
+</body>
+</html>
+team-4@fall2023-comp585-4:~/nginx$ curl http://fall2023-comp585-4.cs.mcgill.ca/recommend/32456
+the+lord+of+the+rings+the+two+towers+2002,pulp+fiction+1994,whiplash+2014,the+lord+of+the+rings+the+return+of+the+king+2003,one+flew+over+the+cuckoos+nest+1975,interstellar+2014,my+neighbor+totoro+1988,seven+samurai+1954,the+dark+knight+2008,the+dark+knight+rises+2012,saving+private+ryan+1998,leon+the+professional+1994,the+imitation+game+2014,princess+mononoke+1997,finding+nemo+2003,up+2009,terminator+2+judgment+day+1991,batman+begins+2005,harry+potter+and+the+goblet+of+fire+2005,gone+girl+2014team-4@fall2023-comp585-4:~/nginx$ kubectl get all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-4zzbh   1/1     Running   0          23h
+pod/inference-deployment-7d46d9d5b6-wlgt6   1/1     Running   0          36h
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   2/2     2            2           36h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-5d69bf5767   0         0         0       36h
+replicaset.apps/inference-deployment-7d46d9d5b6   2         2         2       36h
+team-4@fall2023-comp585-4:~/nginx$ kubectl delete pod inference-deployment-7d46d9d5b6-4zzbh
+pod "inference-deployment-7d46d9d5b6-4zzbh" deleted
+team-4@fall2023-comp585-4:~/nginx$ kg all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-8wcwd   1/1     Running   0          4s
+pod/inference-deployment-7d46d9d5b6-wlgt6   1/1     Running   0          36h
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   2/2     2            2           36h
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-5d69bf5767   0         0         0       36h
+replicaset.apps/inference-deployment-7d46d9d5b6   2         2         2       36h
+team-4@fall2023-comp585-4:~/nginx$ kubectl delete inference-deployment
+error: the server doesn't have a resource type "inference-deployment"
+team-4@fall2023-comp585-4:~/nginx$ kubectl delete deploy inference-deployment
+deployment.apps "inference-deployment" deleted
+team-4@fall2023-comp585-4:~/nginx$ kg all
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+team-4@fall2023-comp585-4:~/nginx$ kg all
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+team-4@fall2023-comp585-4:~/nginx$ cd ../kubernetes
+-bash: cd: ../kubernetes: No such file or directory
+team-4@fall2023-comp585-4:~/nginx$ cd ../team-4
+team-4@fall2023-comp585-4:~/team-4$ ls
+app  assignment  kubernetes  M1-report  M2-report  meeting-notes  miscellaneous  monitoring  README.md  Team4_A1_grading.pdf  workflow.md
+team-4@fall2023-comp585-4:~/team-4$ cd kubernetes/
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ ls
+inference-deployment.yml  inference-service.yml  ingress.yml  metallb-config.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat inference-deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-deployment
+  labels:
+    app: inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      containers:
+        - name: inference
+          image: varunks99/inference:latest
+      restartPolicy: Always
+
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kubectl apply -f in
+inference-deployment.yml  inference-service.yml     ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kubectl apply -f inference-deployment.yml
+deployment.apps/inference-deployment created
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-h6pfq   1/1     Running   0          2s
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   1/1     1            1           2s
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-7d46d9d5b6   1         1         1       2s
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca/
+{"Welcome":"Hit the user ID end point - /recommend/<userid>"}
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg ingress
+NAME                CLASS   HOSTS                             ADDRESS     PORTS   AGE
+inference-ingress   nginx   fall2023-comp585-4.cs.mcgill.ca   localhost   80      33h
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ ls
+inference-deployment.yml  inference-service.yml  ingress.yml  metallb-config.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cd ../
+team-4@fall2023-comp585-4:~/team-4$ cd ..
+team-4@fall2023-comp585-4:~$ cd nginx/
+team-4@fall2023-comp585-4:~/nginx$ cat nginx.conf
+
+events { }
+http {
+server {
+    listen 8082;
+    server_name fall2023-comp585-4.cs.mcgill.ca;
+
+    location / {
+        return 301 http://fall2023-comp585-4.cs.mcgill.ca;
+    }
+
+}
+}
+
+team-4@fall2023-comp585-4:~/nginx$ cd ../team-4/kubernetes/
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ ls
+inference-deployment.yml  inference-service.yml  ingress.yml  metallb-config.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ nano inference-service.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f in
+inference-deployment.yml  inference-service.yml     ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f inference-service.yml
+Command 'apply' not found, did you mean:
+  command 'aptly' from deb aptly (1.4.0+ds1-6)
+Try: apt install <deb name>
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl https://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+\curl: (35) error:0A00010B:SSL routines::wrong version number
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl https://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+curl: (35) error:0A00010B:SSL routines::wrong version number
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl https://fall2023-comp585-4.cs.mcgill.ca
+curl: (60) SSL certificate problem: self-signed certificate
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f inference-service.yml
+Command 'apply' not found, did you mean:
+  command 'aptly' from deb aptly (1.4.0+ds1-6)
+Try: apt install <deb name>
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-h6pfq   1/1     Running   0          18m
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d1h
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d1h
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   1/1     1            1           18m
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-7d46d9d5b6   1         1         1       18m
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f inference-service.yml
+Command 'apply' not found, did you mean:
+  command 'aptly' from deb aptly (1.4.0+ds1-6)
+Try: apt install <deb name>
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kubectl apply -f inference-service.yml
+The Service "inference-service" is invalid: spec.ports[0].protocol: Unsupported value: "HTTP": supported values: "SCTP", "TCP", "UDP"
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ vi inference-service.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ alias k=kubectl
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f ingress.yml
+ingress.networking.k8s.io/inference-ingress unchanged
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ ls
+inference-deployment.yml  inference-service.yml  ingress.yml  metallb-config.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat metallb-config.yml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: example
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.25.255.200-172.25.255.250
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: empty
+  namespace: metallb-system
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat inference-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-service
+  annotations:
+     nginx.org/listen-ports: [8082]
+  labels:
+    app: inference
+spec:
+  type: LoadBalancer
+  selector:
+    app: inference
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ nano ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ vi ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f ingress.yml
+error: unable to decode "ingress.yml": json: cannot unmarshal array into Go struct field ObjectMeta.metadata.annotations of type string
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ vi ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f ingress.yml
+ingress.networking.k8s.io/inference-ingress configured
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-h6pfq   1/1     Running   0          30m
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP                   PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.93.172   172.25.255.200,10.69.38.201   8082:32455/TCP   2d1h
+service/kubernetes          ClusterIP      10.96.0.1      <none>                        443/TCP          2d1h
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   1/1     1            1           30m
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-7d46d9d5b6   1         1         1       30m
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg ing
+NAME                CLASS   HOSTS                             ADDRESS     PORTS   AGE
+inference-ingress   nginx   fall2023-comp585-4.cs.mcgill.ca   localhost   80      33h
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+  annotations:
+    nginx.org/listen-ports: "http:8082" #]
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k describe ing inference-ingress
+Name:             inference-ingress
+Labels:           <none>
+Namespace:        default
+Address:          localhost
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host                             Path  Backends
+  ----                             ----  --------
+  fall2023-comp585-4.cs.mcgill.ca
+                                   /   inference-service:8082 (10.244.0.19:8082)
+Annotations:                       nginx.ingress.kubernetes.io/rewrite-target: /
+                                   nginx.org/listen-ports: http:8082
+Events:
+  Type    Reason  Age                From                      Message
+  ----    ------  ----               ----                      -------
+  Normal  Sync    30s (x2 over 26h)  nginx-ingress-controller  Scheduled for sync
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl https://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+curl: (35) error:0A00010B:SSL routines::wrong version number
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.25.3</center>
+</body>
+</html>
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ docker stop nginx-proxy
+nginx-proxy
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+curl: (7) Failed to connect to fall2023-comp585-4.cs.mcgill.ca port 8082 after 3 ms: Connection refused
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca
+{"Welcome":"Hit the user ID end point - /recommend/<userid>"}
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+  annotations:
+    nginx.org/listen-ports: "http:8082" #]
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg all -n ingress-nginx
+NAME                                           READY   STATUS      RESTARTS   AGE
+pod/ingress-nginx-admission-create-cl6nw       0/1     Completed   0          2d1h
+pod/ingress-nginx-admission-patch-rp6zr        0/1     Completed   0          2d1h
+pod/ingress-nginx-controller-d9b6d7bf5-dvzvm   1/1     Running     0          26h
+
+NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/ingress-nginx-controller             NodePort    10.96.194.165   <none>        80:30672/TCP,443:31545/TCP   2d1h
+service/ingress-nginx-controller-admission   ClusterIP   10.96.43.168    <none>        443/TCP                      2d1h
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/ingress-nginx-controller   1/1     1            1           2d1h
+
+NAME                                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/ingress-nginx-controller-7df59f4895   0         0         0       27h
+replicaset.apps/ingress-nginx-controller-d9b6d7bf5    1         1         1       2d1h
+
+NAME                                       COMPLETIONS   DURATION   AGE
+job.batch/ingress-nginx-admission-create   1/1           15s        2d1h
+job.batch/ingress-nginx-admission-patch    1/1           15s        2d1h
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED      STATUS      PORTS
+         NAMES
+9501a297fcb8   kindest/node:v1.27.3   "/usr/local/bin/entr…"   2 days ago   Up 2 days   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 127.0.0.1:35597->6443/tcp   kind-control-plane
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kind delete cluster
+Command 'kind' not found, did you mean:
+  command 'kfind' from snap kfind (23.08.3)
+  command 'kino' from deb kino (1.3.4+dfsg0-1.1)
+  command 'kfind' from deb kfind (4:21.12.3-0ubuntu1)
+  command 'find' from deb findutils (4.8.0-1ubuntu3)
+  command 'king' from deb king (2.24+dfsg2-1)
+See 'snap info <snapname>' for additional versions.
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cd ../..
+team-4@fall2023-comp585-4:~$ ls
+history1.csv  history3.csv  kubectl.sha256  monitoring  ratings1.csv  ratings3.csv  team-4
+history2.csv  history.csv   mile            nginx       ratings2.csv  ratings.csv
+team-4@fall2023-comp585-4:~$ cd mile
+
+team-4@fall2023-comp585-4:~/mile$ ./kind delete cluster
+Deleting cluster "kind" ...
+Deleted nodes: ["kind-control-plane"]
+team-4@fall2023-comp585-4:~/mile$ cat <<EOF | ./kind create cluster --config=-
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 8082
+    hostPort: 8082
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+EOF
+Creating cluster "kind" ...
+ ✓ Ensuring node image (kindest/node:v1.27.3) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-kind"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+team-4@fall2023-comp585-4:~/mile$ kubectl cluster-info
+Kubernetes control plane is running at https://127.0.0.1:34049
+CoreDNS is running at https://127.0.0.1:34049/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+team-4@fall2023-comp585-4:~/mile$ docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED              STATUS              PORTS
+                                                 NAMES
+b1aa87799692   kindest/node:v1.27.3   "/usr/local/bin/entr…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp, 0.0.0.0:8082->8082/tcp, 127.0.0.1:34049->6443/tcp   kind-control-plane
+team-4@fall2023-comp585-4:~/mile$ alias k=kubectl
+team-4@fall2023-comp585-4:~/mile$ k get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   70s
+team-4@fall2023-comp585-4:~/mile$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+namespace/ingress-nginx created
+serviceaccount/ingress-nginx created
+serviceaccount/ingress-nginx-admission created
+role.rbac.authorization.k8s.io/ingress-nginx created
+role.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx created
+clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx created
+rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
+clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+configmap/ingress-nginx-controller created
+service/ingress-nginx-controller created
+service/ingress-nginx-controller-admission created
+deployment.apps/ingress-nginx-controller created
+job.batch/ingress-nginx-admission-create created
+job.batch/ingress-nginx-admission-patch created
+ingressclass.networking.k8s.io/nginx created
+networkpolicy.networking.k8s.io/ingress-nginx-admission created
+validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
+team-4@fall2023-comp585-4:~/mile$ k get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   5m4s
+team-4@fall2023-comp585-4:~/mile$ alias k=kubectl
+team-4@fall2023-comp585-4:~/mile$ k get all -n ingress-nginx
+NAME                                           READY   STATUS      RESTARTS   AGE
+pod/ingress-nginx-admission-create-xvtzc       0/1     Completed   0          58s
+pod/ingress-nginx-admission-patch-qvxsp        0/1     Completed   0          58s
+pod/ingress-nginx-controller-d9b6d7bf5-p579n   1/1     Running     0          58s
+
+NAME                                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/ingress-nginx-controller             NodePort    10.96.115.221   <none>        80:32690/TCP,443:31827/TCP   58s
+service/ingress-nginx-controller-admission   ClusterIP   10.96.227.132   <none>        443/TCP                      58s
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/ingress-nginx-controller   1/1     1            1           58s
+
+NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/ingress-nginx-controller-d9b6d7bf5   1         1         1       58s
+
+NAME                                       COMPLETIONS   DURATION   AGE
+job.batch/ingress-nginx-admission-create   1/1           10s        58s
+job.batch/ingress-nginx-admission-patch    1/1           10s        58s
+team-4@fall2023-comp585-4:~/mile$ k describe service ingress-nginx-controller
+Error from server (NotFound): services "ingress-nginx-controller" not found
+team-4@fall2023-comp585-4:~/mile$ k describe service ingress-nginx-controller -n ingress-nginx
+Name:                     ingress-nginx-controller
+Namespace:                ingress-nginx
+Labels:                   app.kubernetes.io/component=controller
+                          app.kubernetes.io/instance=ingress-nginx
+                          app.kubernetes.io/name=ingress-nginx
+                          app.kubernetes.io/part-of=ingress-nginx
+                          app.kubernetes.io/version=1.9.4
+Annotations:              <none>
+Selector:                 app.kubernetes.io/component=controller,app.kubernetes.io/instance=ingress-nginx,app.kubernetes.io/name=ingress-nginx
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.115.221
+IPs:                      10.96.115.221
+Port:                     http  80/TCP
+TargetPort:               http/TCP
+NodePort:                 http  32690/TCP
+Endpoints:                10.244.0.7:80
+Port:                     https  443/TCP
+TargetPort:               https/TCP
+NodePort:                 https  31827/TCP
+Endpoints:                10.244.0.7:443
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+team-4@fall2023-comp585-4:~/mile$ cd ../team-4/kubernetes/
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ ls
+inference-deployment.yml  inference-service.yml  ingress.yml  metallb-config.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ nano inference-deployment.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ vi inference-service.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ vi ingress.yml
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat metallb-config.yml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: example
+  namespace: metallb-system
+spec:
+  addresses:
+  - 172.25.255.200-172.25.255.250
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: empty
+  namespace: metallb-system
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f .
+deployment.apps/inference-deployment created
+service/inference-service created
+ingress.networking.k8s.io/inference-ingress created
+resource mapping not found for name: "example" namespace: "metallb-system" from "metallb-config.yml": no matches for kind "IPAddressPool" in version "metallb.io/v1beta1"
+ensure CRDs are installed first
+resource mapping not found for name: "empty" namespace: "metallb-system" from "metallb-config.yml": no matches for kind "L2Advertisement" in version "metallb.io/v1beta1"
+ensure CRDs are installed first
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
+namespace/metallb-system created
+customresourcedefinition.apiextensions.k8s.io/addresspools.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bfdprofiles.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bgpadvertisements.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/bgppeers.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/communities.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/ipaddresspools.metallb.io created
+customresourcedefinition.apiextensions.k8s.io/l2advertisements.metallb.io created
+serviceaccount/controller created
+serviceaccount/speaker created
+role.rbac.authorization.k8s.io/controller created
+role.rbac.authorization.k8s.io/pod-lister created
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker created
+rolebinding.rbac.authorization.k8s.io/controller created
+rolebinding.rbac.authorization.k8s.io/pod-lister created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker created
+secret/webhook-server-cert created
+service/webhook-service created
+deployment.apps/controller created
+daemonset.apps/speaker created
+validatingwebhookconfiguration.admissionregistration.k8s.io/metallb-webhook-configuration created
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kubectl wait --namespace metallb-system \
+                --for=condition=ready pod \
+                --selector=app=metallb \
+                --timeout=90s
+pod/controller-789c75c689-v8w5g condition met
+^Cteam-4@fall2023-comp585-4:~/team-4/kubernetesdocker network inspect -f '{{.IPAM.Config}}' kindnd
+[{172.25.0.0/16  172.25.0.1 map[]} {fc00:f853:ccd:e793::/64   map[]}]
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k apply -f .
+deployment.apps/inference-deployment unchanged
+service/inference-service unchanged
+ingress.networking.k8s.io/inference-ingress unchanged
+ipaddresspool.metallb.io/example created
+l2advertisement.metallb.io/empty created
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ k get all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/inference-deployment-7d46d9d5b6-5plz4   1/1     Running   0          92s
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)          AGE
+service/inference-service   LoadBalancer   10.96.120.58   172.25.255.200   8082:31979/TCP   92s
+service/kubernetes          ClusterIP      10.96.0.1      <none>           443/TCP          12m
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/inference-deployment   1/1     1            1           92s
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/inference-deployment-7d46d9d5b6   1         1         1       92s
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ kg ingress
+NAME                CLASS    HOSTS                             ADDRESS     PORTS   AGE
+inference-ingress   <none>   fall2023-comp585-4.cs.mcgill.ca   localhost   80      102s
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+curl: (7) Failed to connect to fall2023-comp585-4.cs.mcgill.ca port 8082 after 3 ms: Connection refused
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca
+{"Welcome":"Hit the user ID end point - /recommend/<userid>"}
+team-4@fall2023-comp585-4:~/team-4/kubernetes$ curl http://fall2023-comp585-4.cs.mcgill.ca/recommend/342654
+the+lord+of+the+rings+the+two+towers+2002,whiplash+2014,the+lord+of+the+rings+the+return+of+the+king+2003,pulp+fiction+1994,interstellar+2014,one+flew+over+the+cuckoos+nest+1975,my+neighbor+totoro+1988,seven+samurai+1954,the+dark+knight+rises+2012,the+dark+knight+2008,saving+private+ryan+1998,leon+the+professional+1994,the+imitation+game+2014,finding+nemo+2003,princess+mononoke+1997,up+2009,terminator+2+judgment+day+1991,pirates+of+the+caribbean+the+curse+of+the+black+pearl+2003,harry+potter+and+the+goblet+of+fire+2005,iron+man+3+2013team-4@fall2023-comp585-4:~/team-4/kubernetes$ cat ingress.yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+    # annotations:
+    #nginx.org/listen-ports: "http:8082" #]
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+team-4@fall2023-comp585-4:~/team-4/kubernetes$
+
+
+cat <<EOF | ./kind create cluster --config=-
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 8082
+    hostPort: 8082
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+EOF
+
+
+
+
+inference-deployment-7d46d9d5b6-nnwm5
+curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+curl 
+curl http://fall2023-comp585-4.cs.mcgill.ca:8082/recommend/12345
+
+curl http://fall2023-comp585-4.cs.mcgill.ca/recommend/userID
+
+/
+--> string
+
+
+kind cluster --> host to container
+inference-service --> po
+
+
+8082
+docker container 2:
+Flask app create:
+	/
+	/recommend/userID
+	
+	resource URL
+	
+	response = request.get()
+	# curl http://fall2023-comp585-4.cs.mcgill.ca/
+	
+	response.parse() --> forward
+	response
+
+
+from flask import Flask
+import requests
+
+app = Flask(__name__)
+
+@app.route('/recommend/<userid>')
+def hello(userid):
+	response = requests.get("http://fall2023-comp585.cs.mcgill.ca/recommend/"+str(userid))
+	
+	if response.status_code != 200:
+		return "Response not successful"
+	
+	return response.json()
+
+
+if __name__ == '__main__':
+    app.run(port=5000)
+
+
+--------------------------------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api-container
+        image: varunks99/inference:latest
+        ports:
+        - containerPort: 8082
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-deployment
+  labels:
+    app: inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      containers:
+        - name: inference
+          image: varunks99/inference:latest
+      restartPolicy: Always
+
+-----------------------------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-deployment
+  labels:
+    app: inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference
+  template:
+    metadata:
+      labels:
+        app: inference
+    spec:
+      containers:
+        - name: inference
+          ports:
+             - name: web
+               containerPort: 8082
+               protocol: TCP
+          image: varunks99/inference:latest
+      restartPolicy: Always
+-------------
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-service
+  labels:
+    app: inference
+spec:
+  type: LoadBalancer
+  selector:
+    app: inference
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: web
+	  
+-------------
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inference-ingress
+spec:
+  rules:
+  - host: fall2023-comp585-4.cs.mcgill.ca
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: inference-service
+            port:
+              number: 8082
+

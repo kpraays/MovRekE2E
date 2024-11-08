@@ -1,0 +1,32 @@
+groups:
+- name: rules
+  rules:
+
+  # Alert for any instance that is unreachable for >2 minutes.
+  - alert: service_down
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.job }} down"
+      description: "{{ $labels.job }} has been down for more than 2 minutes."
+
+  # Alert if any container of our recommender system goes down
+  - alert: recommender_down
+    expr:  time() - container_last_seen{job="cadvisor", name=~"app-recommender-1|app-recommender-2|nginx"} > 60 OR absent(container_cpu_usage_seconds_total{name=~"app-recommender-1|app-recommender-2|nginx"})
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Container {{ $labels.name }} is down"
+      description: "The container {{ $labels.name }} is not up for more than 1 minute."
+
+  - alert: recommender_timeout
+    expr:  (promtail_custom_request_timeout) / (promtail_custom_successful_requests + promtail_custom_request_timeout ) > 0.8
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High number of recommendation timeouts"
+      description: "{{ $value }}% of recommendations requests timed out over the last few minutes. Action required to prevent service degradation."

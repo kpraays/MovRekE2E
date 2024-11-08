@@ -1,0 +1,19 @@
+Fairness Analysis
+
+Analysis Approach: The discussion focused on conducting a comprehensive fairness analysis of the data set and the model, utilizing specialized tools for an in-depth assessment.
+
+Presentation Preparation: Graphical representations of the fairness analysis findings were planned for inclusion in the final presentation, emphasizing the importance of clear and impactful data visualization.
+
+Integration of Scripts and Data Collection
+
+Automated Script Execution Strategy: The agenda included automating scripts on a server, which would periodically activate to train the model with newly collected data, ensuring the model remains updated.
+
+
+Data Processing Tasks: Creating scripts for data collection and processing was highlighted, with a focus on preparing data in a format suitable for model training.
+Email Alerts and Model Deployment
+
+Deployment and Monitoring Strategy: A Canary release strategy was discussed, with an emphasis on monitoring response times before full deployment.
+
+Notification System Setup: Establishing an email notification system was planned to inform about the status of model deployments. The possibility of extending this system to other platforms like Slack was also considered.
+
+Workflow Integration: It was important to integrate this notification system seamlessly with the existing project workflow, ensuring it complements other processes without causing disruptions.
